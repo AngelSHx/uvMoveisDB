@@ -73,3 +73,31 @@ values
 
 select * from Date_Dim;
 -- ------------------------------------------------------------------------------------------------------------
+
+-- -------------------------------------------------------------------------------------------------------
+-- CREATING Product_Dim TABLE (CREATED BY Kynndal Teel)
+-- -------------------------------------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS 'Product_Dim';
+
+CREATE TABLE IF NOT EXISTS 'Product_Dim'(
+        'Product_ID', int NOT NULL,
+        'Movie_Name', varchar(100) NOT NULL,
+        'Movie_Genre', varchar(10) NOT NULL,
+        'Movie_Rating', varchar(4) NOT NULL,
+        'Length_Minutes', int, NOT NULL,
+        'Digital_Type', varchar(3), NOT NULL,
+        'Redemption_Method'varchar(15), NOT NULL,
+        'Redemption_Code', varchar(25), NOT NULL
+        'Retail_Price', money, NOT NULL,
+        'PreOrder_Release_date', date NULL,
+        primary key ('Product_ID'),
+
+        constraint chk_Genre check (Movie_Genre in ('Action','Adventure','Comedy','Family','Horror','Sci-Fi'))
+        constraint chk_Rating check (Movie_Rating in ('G','PG','PG13','R','NR'))
+        constraint chk_Length check (Length_Minutes > 0 AND Length_Minutes <=360),
+        constraint chk_type check (Digital_Type in ('SD', 'HDX', 'UHD')),
+        constraint chk_Method check (Redemption_Method in ('Movies Anywhere', 'VUDU', 'iTunes','Amazon'))
+);
+
+
